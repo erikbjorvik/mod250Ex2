@@ -8,6 +8,7 @@ package no.hib.mod250.managedBeans;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import no.hib.mod250.enterpriseBeans.UserDAO;
 
 @ManagedBean
@@ -47,6 +48,7 @@ public class LoginView {
         }
         
         else {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", this.getEmail());
             return "login?error=1";
         }
     }
