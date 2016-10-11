@@ -13,4 +13,12 @@
     </navigation-case>
 </navigation-rule>
 
+    <navigation-rule>
+    <from-view-id>/my-products.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>my-products</from-outcome>
+        <to-view-id>/my-products.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
 </faces-config>
