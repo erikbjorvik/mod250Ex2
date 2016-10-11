@@ -3,6 +3,7 @@
   <persistence-unit name="ex2PU">
     <jta-data-source>java:app/database</jta-data-source>
     <class>no.hib.mod250.entities.User</class>
+    <class>no.hib.mod250.entities.Product</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
