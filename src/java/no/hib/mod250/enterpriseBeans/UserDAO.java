@@ -7,6 +7,7 @@ package no.hib.mod250.enterpriseBeans;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import no.hib.mod250.entities.User;
 
@@ -23,7 +25,7 @@ import no.hib.mod250.entities.User;
  */
 
 @Stateless
-public class RegisterUser {
+public class UserDAO {
     
     @PersistenceContext(unitName = "ex2PU")
     private EntityManager em;
@@ -35,6 +37,7 @@ public class RegisterUser {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setEmail(email);
+        user.setPasshash(password);
         
       
         em.persist(user);
@@ -42,7 +45,15 @@ public class RegisterUser {
     }
     
     public boolean login(String email, String password) {
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.passhash = :passhash");
+        List<User> resultList = query.setParameter("email", email).setParameter("passhash", password).getResultList();
+        if(resultList.isEmpty()) {
+            return false;
+        }
         
+        else {
+            return true;
+        }
     }
     
     

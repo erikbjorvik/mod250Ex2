@@ -7,7 +7,7 @@ package no.hib.mod250.managedBeans;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import no.hib.mod250.enterpriseBeans.RegisterUser;
+import no.hib.mod250.enterpriseBeans.UserDAO;
 
 
 
@@ -19,7 +19,7 @@ import no.hib.mod250.enterpriseBeans.RegisterUser;
 public class NewUserView {
     
     @EJB
-    RegisterUser registerUser;
+    UserDAO registerUser;
     
     private int brukerType;
     
@@ -88,7 +88,7 @@ public class NewUserView {
             registerUser.storeNewUser(this.getFirstname(),
                 this.getLastname(),
                 this.getEmail(),
-                "pass");
+                this.getPassword());
         
             return "user-created";
         }

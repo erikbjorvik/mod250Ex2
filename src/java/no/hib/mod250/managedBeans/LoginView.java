@@ -8,12 +8,15 @@ package no.hib.mod250.managedBeans;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import no.hib.mod250.enterpriseBeans.RegisterUser;
+import no.hib.mod250.enterpriseBeans.UserDAO;
 
-@MangedBean
+@ManagedBean
 public class LoginView {
     
-    String username;
+    @EJB
+    UserDAO user;
+    
+    String email;
     String password;
 
     /**
@@ -22,12 +25,12 @@ public class LoginView {
     public LoginView() {
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -38,6 +41,14 @@ public class LoginView {
         this.password = password;
     }
     
-    
+    public String login() {
+        if(user.login(getEmail(), getPassword())) {
+            return "control-panel";
+        }
+        
+        else {
+            return "login?error=1";
+        }
+    }
     
 }
