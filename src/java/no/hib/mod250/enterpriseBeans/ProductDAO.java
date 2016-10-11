@@ -51,6 +51,11 @@ public class ProductDAO {
         return query.setParameter("userId", userId).getResultList();
     }
     
+    public Product getProductById(int productId) {
+        Query query = em.createQuery("SELECT u FROM Product u WHERE u.id = :productId");
+        return (Product) query.setParameter("productId", productId).getResultList().get(0);
+    }
+    
     
     
 }
