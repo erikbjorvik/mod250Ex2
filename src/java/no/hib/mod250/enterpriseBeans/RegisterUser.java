@@ -41,5 +41,9 @@ public class RegisterUser {
         
     }
     
+    public boolean login(String email, String password) {
+        
+    }
+    
     
 }
