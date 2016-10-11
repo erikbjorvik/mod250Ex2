@@ -28,7 +28,7 @@ public class Product implements Serializable {
     private String features;
     private String deadline;
     private float rating;
-    private int sellerId;
+    private Long sellerId;
     
     
 
@@ -40,11 +40,11 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public int getSellerId() {
+    public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(int sellerId) {
+    public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
     }
     

@@ -44,9 +44,9 @@ public class LoginView {
     }
     
     public String login() {
-        if(user.login(getEmail(), getPassword())) {
+        if(user.login(getEmail(), getPassword()) != -1) {
             Session session = new Session();
-            session.setEmail(this.getEmail());
+            session.setId(user.login(getEmail(), getPassword()));
             return "control-panel";
         }
         

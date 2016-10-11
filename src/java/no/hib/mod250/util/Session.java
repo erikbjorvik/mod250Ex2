@@ -12,11 +12,11 @@ import javax.faces.context.FacesContext;
  * @author haava
  */
 public class Session {
-    public String getEmail() {
-        return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email");
+    public Long getId() {
+        return (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
     }
     
-    public void setEmail(String email) {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", email);
+    public void setId(Long id) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
     }
 }

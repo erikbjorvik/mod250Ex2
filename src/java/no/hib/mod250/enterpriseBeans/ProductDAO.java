@@ -19,6 +19,7 @@ import javax.persistence.Query;
 import javax.servlet.ServletException;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.entities.User;
+import no.hib.mod250.util.Session;
 
 /**
  *
@@ -35,12 +36,13 @@ public class ProductDAO {
             String deadline) {
         
         Product product = new Product();
+        Session session = new Session();
         product.setName(name);
         product.setDescription(description);
         product.setFeatures(features);
         product.setDeadline(deadline);
         product.setRating(0);
-        product.setSellerId(0);
+        product.setSellerId(session.getId());
         
         em.persist(product);
         
