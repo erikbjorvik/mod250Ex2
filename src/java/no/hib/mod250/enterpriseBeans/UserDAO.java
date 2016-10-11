@@ -46,15 +46,15 @@ public class UserDAO {
         
     }
     
-    public boolean login(String email, String password) {
+    public Long login(String email, String password) {
         Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.passhash = :passhash");
         List<User> resultList = query.setParameter("email", email).setParameter("passhash", password).getResultList();
         if(resultList.isEmpty()) {
-            return false;
+            return -1L;
         }
         
         else {
-            return true;
+            return resultList.get(0).getId();
         }
     }
     
