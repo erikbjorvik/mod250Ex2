@@ -44,11 +44,11 @@ public class LoginView {
     
     public String login() {
         if(user.login(getEmail(), getPassword())) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", this.getEmail());
             return "control-panel";
         }
         
         else {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", this.getEmail());
             return "login?error=1";
         }
     }
