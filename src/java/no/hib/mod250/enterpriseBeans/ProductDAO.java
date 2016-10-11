@@ -7,6 +7,7 @@ package no.hib.mod250.enterpriseBeans;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.entities.User;
@@ -38,10 +40,17 @@ public class ProductDAO {
         product.setFeatures(features);
         product.setDeadline(deadline);
         product.setRating(0);
+        product.setSellerId(0);
         
         em.persist(product);
         
     }
+    
+    public List<Product> getProductsByUser(int userId) {
+        Query query = em.createQuery("SELECT u FROM Product u WHERE u.sellerId = :userId");
+        return query.setParameter("userId", userId).getResultList();
+    }
+    
     
     
 }
