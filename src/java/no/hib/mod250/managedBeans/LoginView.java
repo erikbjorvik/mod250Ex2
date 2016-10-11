@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import no.hib.mod250.enterpriseBeans.UserDAO;
+import no.hib.mod250.util.Session;
 
 @ManagedBean
 public class LoginView {
@@ -44,7 +45,8 @@ public class LoginView {
     
     public String login() {
         if(user.login(getEmail(), getPassword())) {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", this.getEmail());
+            Session session = new Session();
+            session.setEmail(this.getEmail());
             return "control-panel";
         }
         
