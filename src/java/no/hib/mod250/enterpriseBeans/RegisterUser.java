@@ -31,7 +31,6 @@ public class RegisterUser {
     public void storeNewUser(String firstname, String lastname,
     String email, String password) {
         
-       
         User user = new User();
         user.setFirstname(firstname);
         user.setLastname(lastname);

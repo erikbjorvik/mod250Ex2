@@ -14,20 +14,20 @@
                 <td><h:inputText value="#{newUserView.firstname}" /></td>
             </tr>
             <tr>
-                <td>Lastname</td>
+                <td>Lastname:</td>
                 <td><h:inputText value="#{newUserView.lastname}" /></td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td><h:inputText value="#{newUserView.email}" /></td>
+                <td>Email:</td>
+                <td><h:inputText id="email" value="#{newUserView.email}" /><h:message for="email" /></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><h:inputText value="#{newUserView.password}" /></td>
+                <td><h:inputSecret id="password" value="#{newUserView.password}" /><h:message for="password" /></td>
             </tr>
             <tr>
                 <td>Password repeat:</td>
-                <td><h:inputText value="#{newUserView.passwordRepeat}" /></td>
+                <td><h:inputSecret id="passwordRepeat" value="#{newUserView.passwordRepeat}" /><h:message for="passwordRepeat" /></td>
             </tr>
         </table>
             

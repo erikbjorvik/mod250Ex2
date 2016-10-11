@@ -84,13 +84,19 @@ public class NewUserView {
     }
     
     public String add() {
-        
-        registerUser.storeNewUser(this.getFirstname(),
+        if(getPassword().equals(getPasswordRepeat())) {
+            registerUser.storeNewUser(this.getFirstname(),
                 this.getLastname(),
                 this.getEmail(),
                 "pass");
         
-        return "user-created";
+            return "user-created";
+        }
+        
+        else {
+            return "new-user";
+        }
+        
     }
 
 
