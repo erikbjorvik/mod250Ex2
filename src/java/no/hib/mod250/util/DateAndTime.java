@@ -25,7 +25,7 @@ public class DateAndTime {
     public static Date getDateObject(String date) {
         
         //The format should be dd.mm.yyyy hh:mm:ss
-        
+        try {
         String[] mainSplit = date.split(" ");
         String datePart = mainSplit[0];
         String timePart = mainSplit[1];
@@ -54,6 +54,10 @@ public class DateAndTime {
         cal.set(Calendar.SECOND, new Integer(timeParts[2]));
         
         return cal.getTime();
+        }
+        catch (Exception e) {
+            return null;
+        }
         
         
         
@@ -84,16 +88,25 @@ public class DateAndTime {
      */
     public static long timeLeft(Date date) {
         
+        try {
         Date current = new Date();
         
         //This is the difference in millisec
         return date.getTime() - current.getTime(); 
+        }
+        catch (Exception e) {
+            return 0;
+        }
        
     }
     
     public static String timeLeftString(Date date) {
         
         long diff = timeLeft(date);
+        
+        if (diff==0)
+            return "";
+        
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(diff));
         int month = calendar.get(Calendar.MONTH);
