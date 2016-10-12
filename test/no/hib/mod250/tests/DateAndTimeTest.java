@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static java.lang.Math.toIntExact;
 
 /**
  *
@@ -34,6 +35,22 @@ public class DateAndTimeTest {
         assertEquals(date3, DateAndTime.dateToString(DateAndTime.getDateObject(date3)));
         assertEquals(date1, DateAndTime.dateToString(DateAndTime.getDateObject(date1)));
         assertEquals(date2, DateAndTime.dateToString(DateAndTime.getDateObject(date2)));
+        
+        
+    }
+    
+    @Test
+    public void testTimeLeft() {
+        
+
+        boolean t1 = DateAndTime.isThereTimeLeft(DateAndTime.getDateObject("29.11.2016 23:59:59"));
+        boolean t2 = DateAndTime.isThereTimeLeft(DateAndTime.getDateObject("24.10.2000 22:29:45"));
+        
+        
+        // Check that parsing are working
+        assertTrue(t1);
+        assertFalse(t2);
+        
         
         
     }

@@ -100,6 +100,17 @@ public class DateAndTime {
        
     }
     
+    public static boolean isThereTimeLeft(Date date) {
+        Date current = new Date();
+        
+        try {
+            return date.after(current);
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+    
     public static String timeLeftString(Date date) {
         
         long diff = timeLeft(date);

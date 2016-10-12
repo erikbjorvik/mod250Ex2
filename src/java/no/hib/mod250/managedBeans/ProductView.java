@@ -24,6 +24,8 @@ public class ProductView {
     private int productId;
     private String deadline;
     private String timeleft;
+    private boolean bidActive;
+    private long bid;
     
     @EJB
     private ProductDAO pDao;
@@ -34,6 +36,16 @@ public class ProductView {
     public ProductView() {
         
     }
+
+    public long getBid() {
+        return bid;
+    }
+
+    public void setBid(long bid) {
+        this.bid = bid;
+    }
+    
+    
     
     public Product getProduct() {
         return pDao.getProductById(this.getId());
@@ -45,6 +57,19 @@ public class ProductView {
 
     public int getProductId() {
         return productId;
+    }
+
+    public boolean getBidActive() {
+        
+        return !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(
+                        pDao.getProductById(this.getId()).getDeadline()
+                    )
+                );
+        
+    }
+    
+    public String add() {
+        return "f";
     }
 
     public void setProductId(int productId) {

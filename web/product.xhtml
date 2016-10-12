@@ -12,6 +12,13 @@
         <p>#{productView.product.features}</p>
         
         <hr />
+        <h1>Place a bid</h1>
+        <h:form>
+            <h:inputText value="#{productView.bid}" disabled="#{productView.bidActive}" />
+            <h:commandButton value="Place bid" disabled="#{productView.bidActive}" action="#{productView.add}" />
+        </h:form>
+        
+        <hr />
         <p><b>Time left:</b> <br />#{productView.timeleft}</p>
         <p>Deadline: #{productView.deadline}</p>
         
