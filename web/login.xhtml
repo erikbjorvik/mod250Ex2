@@ -6,8 +6,9 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h1>Log in</h1>
-        <h:form>
+        <h1>Welcome to the auction</h1>
+        <h2>Please log in</h2>
+        <h:form id="myform">
         <table>
             <tr>
                 <td>Email</td>
@@ -15,13 +16,19 @@
             </tr>
             <tr>
                 <td>Password</td>
-                <td><h:inputText value="#{loginView.password}" /></td>
+                <td><h:inputSecret value="#{loginView.password}" /></td>
             </tr>
         </table>
             
-            <h:commandButton value="Log in" action="#{loginView.login}" />
+            <h:commandButton id="button" value="Log in" action="#{loginView.login}" />
+            
+            <h:message style="color:red" for="button" />
             
         </h:form>
+        
+        <br /><br />
+        
+        <a href="new-user.xhtml">Register now</a>
     </h:body>
 </html>
 

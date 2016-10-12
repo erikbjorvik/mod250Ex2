@@ -5,21 +5,42 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>My products</title>
+        <style>
+            td {
+                border:thin #CCCCCC solid;
+                border-bottom: 3px #CCCCCC solid;
+            }
+            th {
+                text-align:left;
+            }
+        </style>
     </h:head>
     <h:body>
-    
-        <table style="width:100%">
+        <h1>Your products</h1>
+        <table style="width:70%">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Features</th>
+                <th>Action</th>
+            </tr>
         <ui:repeat var="o" value="#{yourProductsView.prodList}">
        
             <tr>
                 <td>#{o.name}</td>
                 <td>#{o.description}</td>
                 <td>#{o.features}</td>
-                <td><a href="#">Vis</a></td>
+                <td><a href="#">Show</a></td>
             </tr>
 
         </ui:repeat>
         </table>
+        
+        <br /><br />
+        
+        <h:form>
+            <h:commandButton id="button" value="Log out" action="#{loginView.logout}" />
+        </h:form>
         
         
     </h:body>

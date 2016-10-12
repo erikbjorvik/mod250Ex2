@@ -36,13 +36,12 @@ public class ProductDAO {
             String deadline) {
         
         Product product = new Product();
-        Session session = new Session();
         product.setName(name);
         product.setDescription(description);
         product.setFeatures(features);
         product.setDeadline(deadline);
         product.setRating(0);
-        product.setSellerId(session.getId());
+        product.setSellerId(Session.getId());
         
         em.persist(product);
         
