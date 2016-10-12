@@ -57,15 +57,13 @@ public class YourProductsView {
         this.prodList = prodList;
     }
     
+    /**
+     * Gets current bid for product given by user
+     * @param prodId product id
+     * @return current bid
+     */
     public int getCurrentBidUser(Long prodId) {
         return pDao.getCurrentBid(Session.getId(), prodId);
     }
-
-
-
-    
-
-    
-    
     
 }
