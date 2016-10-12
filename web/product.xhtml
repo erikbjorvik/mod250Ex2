@@ -6,7 +6,14 @@
         <title>Product</title>
     </h:head>
     <h:body>
-        <h:outputText value="#{param['id']}" />
+ 
+        <h1>#{productView.product.name}</h1>
+        <p>#{productView.product.description}</p>
+        <p>#{productView.product.features}</p>
+        
+        <hr />
+        Deadline: #{productView.deadline}
+        
     </h:body>
 </html>
 

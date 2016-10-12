@@ -5,12 +5,16 @@
  */
 package no.hib.mod250.managedBeans;
 
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
+import no.hib.mod250.util.DateAndTime;
 
 /**
  *
@@ -21,6 +25,11 @@ public class ProductView {
     
     private Product product;
     private int productId;
+    private String deadline;
+    private String timeleft;
+    
+    @EJB
+    private ProductDAO pDao;
 
     /**
      * Creates a new instance of ProductView
@@ -30,7 +39,7 @@ public class ProductView {
     }
     
     public Product getProduct() {
-        return product;
+        return pDao.getProductById(this.getId());
     }
 
     public void setProduct(Product product) {
@@ -44,6 +53,36 @@ public class ProductView {
     public void setProductId(int productId) {
         this.productId = productId;
     }
+
+    public String getDeadline() {
+        return DateAndTime.dateToString(
+                    DateAndTime.getDateObject(
+                        pDao.getProductById(this.getId()).getDeadline()
+                    )
+                );
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getTimeleft() {
+        return timeleft;
+    }
+
+    public void setTimeleft(String timeleft) {
+        this.timeleft = timeleft;
+    }
+
+    public ProductDAO getpDao() {
+        return pDao;
+    }
+
+    public void setpDao(ProductDAO pDao) {
+        this.pDao = pDao;
+    }
+    
+    
     
     public Long getId() {
         
