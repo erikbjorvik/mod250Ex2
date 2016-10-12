@@ -5,6 +5,7 @@
  */
 package no.hib.mod250.managedBeans;
 
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -61,6 +62,10 @@ public class ProductView {
         return productId;
     }
 
+    /**
+     * Return true/false based on if product is active
+     * @return if it's time left
+     */
     public boolean getBidActive() {
         
         return !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(
@@ -70,8 +75,12 @@ public class ProductView {
         
     }
     
+    /**
+     * Adds a new bid (Does not work yet)
+     * @return String with site to redirect
+     */
     public String add() {
-        pDao.placeBid(Session.getId(), this.getBid(), new Integer(this.getProductId()));
+        pDao.placeBid(Session.getId(), this.getBid(), productId);
         return "my-products";
     }
 
@@ -79,6 +88,10 @@ public class ProductView {
         this.productId = productId;
     }
 
+    /**
+     * Get deadline
+     * @return deadline
+     */
     public String getDeadline() {
         return DateAndTime.dateToString(
                     DateAndTime.getDateObject(
@@ -112,15 +125,12 @@ public class ProductView {
     }
     
     
-    
-    public Long getId() {
+    public int getId() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        productId = Integer.parseInt(params.get("id"));
         
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        String id = request.getParameter("id");
-        
-        
-        return Long.parseLong(id);
+        return productId;
        
     }
     

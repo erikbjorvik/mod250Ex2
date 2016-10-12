@@ -100,6 +100,11 @@ public class DateAndTime {
        
     }
     
+    /**
+     * Boolean to check if there is time left
+     * @param date current date
+     * @return true/false based on if there is time left
+     */
     public static boolean isThereTimeLeft(Date date) {
         Date current = new Date();
         
@@ -111,6 +116,11 @@ public class DateAndTime {
         }
     }
     
+    /**
+     * Returns how much time is left of auction
+     * @param date date of deadline
+     * @return String of time left
+     */
     public static String timeLeftString(Date date) {
         
         long diff = timeLeft(date);
