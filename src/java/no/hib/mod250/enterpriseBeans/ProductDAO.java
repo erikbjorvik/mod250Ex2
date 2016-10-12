@@ -36,19 +36,18 @@ public class ProductDAO {
             String deadline) {
         
         Product product = new Product();
-        Session session = new Session();
         product.setName(name);
         product.setDescription(description);
         product.setFeatures(features);
         product.setDeadline(deadline);
         product.setRating(0);
-        product.setSellerId(session.getId());
+        product.setSellerId(Session.getId());
         
         em.persist(product);
         
     }
     
-    public List<Product> getProductsByUser(int userId) {
+    public List<Product> getProductsByUser(long userId) {
         Query query = em.createQuery("SELECT u FROM Product u WHERE u.sellerId = :userId");
         return query.setParameter("userId", userId).getResultList();
     }

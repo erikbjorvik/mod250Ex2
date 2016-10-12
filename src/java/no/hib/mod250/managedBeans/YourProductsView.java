@@ -12,6 +12,7 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
+import no.hib.mod250.util.Session;
 
 /**
  *
@@ -34,7 +35,7 @@ public class YourProductsView {
     }
 
     public List<Product> getProdList() {
-        return pDao.getProductsByUser(0);
+        return pDao.getProductsByUser(Session.getId());
     }
 
     public void setProdList(List<Product> prodList) {
