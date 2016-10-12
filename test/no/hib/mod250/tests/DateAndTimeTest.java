@@ -28,10 +28,13 @@ public class DateAndTimeTest {
         
         String date1 = "24.10.2016 22:29:45";
         String date2 = "27.06.2016 01:39:25";
+        String date3 = "01.01.2016 01:39:25";
         
         // Check that parsing are working
+        assertEquals(date3, DateAndTime.dateToString(DateAndTime.getDateObject(date3)));
         assertEquals(date1, DateAndTime.dateToString(DateAndTime.getDateObject(date1)));
         assertEquals(date2, DateAndTime.dateToString(DateAndTime.getDateObject(date2)));
+        
         
     }
             

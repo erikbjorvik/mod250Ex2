@@ -5,10 +5,7 @@
  */
 package no.hib.mod250.managedBeans;
 
-import java.util.Date;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +64,11 @@ public class ProductView {
     }
 
     public String getTimeleft() {
-        return timeleft;
+        return DateAndTime.timeLeftString(
+                    DateAndTime.getDateObject(
+                        pDao.getProductById(this.getId()).getDeadline()
+                    )
+                );
     }
 
     public void setTimeleft(String timeleft) {
