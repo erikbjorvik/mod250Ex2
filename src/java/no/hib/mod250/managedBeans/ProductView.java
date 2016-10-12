@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.DateAndTime;
+import no.hib.mod250.util.Session;
 
 /**
  *
@@ -25,10 +26,11 @@ public class ProductView {
     private String deadline;
     private String timeleft;
     private boolean bidActive;
-    private long bid;
+    private int bid;
     
     @EJB
     private ProductDAO pDao;
+   
 
     /**
      * Creates a new instance of ProductView
@@ -37,11 +39,11 @@ public class ProductView {
         
     }
 
-    public long getBid() {
+    public int getBid() {
         return bid;
     }
 
-    public void setBid(long bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
     
@@ -69,7 +71,8 @@ public class ProductView {
     }
     
     public String add() {
-        return "f";
+        pDao.placeBid(Session.getId(), this.getBid(), new Integer(this.getProductId()));
+        return "my-products";
     }
 
     public void setProductId(int productId) {
@@ -115,6 +118,8 @@ public class ProductView {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         String id = request.getParameter("id");
+        
+        
         return Long.parseLong(id);
        
     }
