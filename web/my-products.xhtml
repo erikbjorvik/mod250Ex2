@@ -30,7 +30,7 @@
                 <td>#{o.name}</td>
                 <td>#{o.description}</td>
                 <td>#{o.features}</td>
-                <td><a href="#">Show</a></td>
+                <td><a href="product.xhtml?id=#{o.id}">Show</a></td>
             </tr>
 
         </ui:repeat>
@@ -38,9 +38,15 @@
         
         <br /><br />
         
+        <a href="new-product.xhtml">+ Add new product</a>
+        
+        <br /><br />
+        
         <h:form>
             <h:commandButton id="button" value="Log out" action="#{loginView.logout}" />
         </h:form>
+        
+        
         
         
     </h:body>

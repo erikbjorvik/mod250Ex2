@@ -1,12 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>All products</title>
+        <style>
+            td {
+                border:thin #CCCCCC solid;
+                border-bottom: 3px #CCCCCC solid;
+            }
+            th {
+                text-align:left;
+            }
+        </style>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h1>All products</h1>
+        <table style="width:70%">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Features</th>
+                <th>Action</th>
+            </tr>
+        <ui:repeat var="o" value="#{allProductsView.prodList}">
+       
+            <tr>
+                <td>#{o.name}</td>
+                <td>#{o.description}</td>
+                <td>#{o.features}</td>
+                <td><a href="product.xhtml?id=#{o.id}">Show</a></td>
+            </tr>
+
+        </ui:repeat>
+        </table>
+        
+        <br /><br />
+        <a href="login.xhtml">Log in</a>
     </h:body>
 </html>
 
