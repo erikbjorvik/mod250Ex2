@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.Session;
@@ -30,7 +32,18 @@ public class YourProductsView {
      */
     public YourProductsView() {
         
-
+        if(!Session.isLoggedIn()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
+            try {
+                response.sendRedirect("login.xhtml");
+            }
+            
+            catch(Exception e) {
+                
+            }
+            
+        }
         
     }
 

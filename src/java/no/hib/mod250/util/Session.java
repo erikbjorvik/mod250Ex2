@@ -19,4 +19,13 @@ public class Session {
     public static void setId(Long id) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
     }
+    
+    public static boolean isLoggedIn() {
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id") != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
