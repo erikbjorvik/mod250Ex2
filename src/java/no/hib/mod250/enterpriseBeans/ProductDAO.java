@@ -17,6 +17,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
+import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.entities.User;
 import no.hib.mod250.util.Session;
@@ -55,6 +56,25 @@ public class ProductDAO {
     public Product getProductById(long productId) {
         Query query = em.createQuery("SELECT u FROM Product u WHERE u.id = :productId");
         return (Product) query.setParameter("productId", productId).getResultList().get(0);
+    }
+    
+    public void placeBid(long userId, long productId, int sum) {
+        Bid bid = new Bid();
+        bid.setBid(sum);
+        bid.setProductId(productId);
+        bid.setUserId(userId);
+        
+        em.persist(bid);
+    }
+    
+    public Bid getHighestBid(long productId) {
+        Query query = em.createQuery("SELECT MAX(b.bid) FROM Bid b WHERE b.productId = :productId");
+        return (Bid) query.setParameter("productId", productId).getResultList().get(0);
+    }
+    
+    public Bid getCurrentBid(long userId, long productId) {
+        Query query = em.createQuery("SELECT MAX(b.bid) FROM Bid b WHERE b.productId = :productId AND b.userId = :userId");
+        return (Bid) query.setParameter("productId", productId).setParameter("userId", userId).getResultList().get(0);
     }
     
     

@@ -25,6 +25,7 @@ public class LoginView {
 
     /**
      * Creates a new instance of LoginView
+     * Checks if user is logged in. If yes, he/she is redirected to my-products.xhtml
      */
     public LoginView() {
         if(Session.isLoggedIn()) {
@@ -57,6 +58,11 @@ public class LoginView {
         this.password = password;
     }
     
+    /**
+    * Logs in user and gives it a session
+    * @return String with page to redirect user
+    */
+    
     public String login() {
         if(user.login(getEmail(), getPassword()) != -1) {
             Session.setId(user.login(getEmail(), getPassword()));
@@ -69,6 +75,10 @@ public class LoginView {
         }
     }
     
+    /**
+     * Logs out user and destroys session
+     * @return String with page to redirect user
+     */
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "login?faces-redirect=true";

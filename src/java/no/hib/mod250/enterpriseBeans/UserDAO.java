@@ -32,6 +32,13 @@ public class UserDAO {
     @PersistenceContext(unitName = "ex2PU")
     private EntityManager em;
     
+    /**
+     * Stores new user in the database
+     * @param firstname user's firsname
+     * @param lastname user's lastname
+     * @param email user's email
+     * @param password user's password
+     */
     public void storeNewUser(String firstname, String lastname,
     String email, String password) {
         
@@ -46,6 +53,12 @@ public class UserDAO {
         
     }
     
+    /**
+     * Finds user in database to validate login credentials
+     * @param email the user's email
+     * @param password the user's password
+     * @return user-id, or -1 if not valid
+     */
     public Long login(String email, String password) {
         Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.passhash = :passhash");
         List<User> resultList = query.setParameter("email", email).setParameter("passhash", password).getResultList();

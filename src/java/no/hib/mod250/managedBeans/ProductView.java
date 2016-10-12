@@ -86,7 +86,7 @@ public class ProductView {
     
     public Long getId() {
         
-        FacesContext facesContext = FacesContext.getCurrentInstance(); // Hva er FacesContext?
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         String id = request.getParameter("id");
         return Long.parseLong(id);

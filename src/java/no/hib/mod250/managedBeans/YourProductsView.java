@@ -29,6 +29,7 @@ public class YourProductsView {
     ProductDAO pDao;
     /**
      * Creates a new instance of YourProducts
+     * Checks if user is logged in. If not, he/she is redirected to login.xhtml
      */
     public YourProductsView() {
         
