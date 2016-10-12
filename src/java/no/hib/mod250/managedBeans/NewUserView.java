@@ -90,7 +90,7 @@ public class NewUserView {
                 this.getEmail(),
                 this.getPassword());
         
-            return "user-created";
+            return "my-products.xhtml?faces-redirect=true";
         }
         
         else {
