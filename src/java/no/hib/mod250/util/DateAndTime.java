@@ -7,11 +7,8 @@ package no.hib.mod250.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  *
@@ -33,17 +30,23 @@ public class DateAndTime {
         String datePart = mainSplit[0];
         String timePart = mainSplit[1];
         
-        System.out.println("First part: " + datePart);
-        System.out.println("Last part: " + timePart);
-        
-        
-        
-        String[] dateParts = datePart.split(".");
+        String[] dateParts = datePart.split("\\.");
         String[] timeParts = timePart.split(":");
+        
+        // Some debugging...
+        System.out.println("Date part: " + datePart);
+        System.out.println("Time part: " + timePart);
+        System.out.println("t0->: " + timeParts[0]);
+        System.out.println("t1->: " + timeParts[1]);
+        System.out.println("t2->: " + timeParts[2]);
+        System.out.println("d0->: " + dateParts[0]);
+        System.out.println("d1->: " + dateParts[1]);
+        System.out.println("d2->: " + dateParts[2]);
+    
        
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, new Integer(dateParts[2]));
-        cal.set(Calendar.MONTH, new Integer(dateParts[1]));
+        cal.set(Calendar.MONTH, new Integer(dateParts[1])-1);
         cal.set(Calendar.DAY_OF_MONTH, new Integer(dateParts[0]));
         
         cal.set(Calendar.HOUR_OF_DAY, new Integer(timeParts[0]));
@@ -63,11 +66,45 @@ public class DateAndTime {
      */
     public static String dateToString(Date date) {
         
+        //Debuging...
+        System.out.println("Incoming date is " +date);
+        
         if (date == null)
             return "Malformed date format.";
         
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");     
         return df.format(date);
+        
+    }
+    
+    /**
+     * Calculates how much time is left until the given Date object.
+     * @param date 
+     * @return The time left returned in milliseconds, long.
+     */
+    public static long timeLeft(Date date) {
+        
+        Date current = new Date();
+        
+        //This is the difference in millisec
+        return date.getTime() - current.getTime(); 
+       
+    }
+    
+    public static String timeLeftString(Date date) {
+        
+        long diff = timeLeft(date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(diff));
+        int month = calendar.get(Calendar.MONTH);
+        int days = calendar.get(Calendar.DAY_OF_MONTH);
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        int seconds = calendar.get(Calendar.SECOND);
+      
+             
+        return month + " month(s), " + days + " days, " + hours + " hours, " + minutes + " minutes and " +
+                seconds + " seconds.";
         
     }
     
