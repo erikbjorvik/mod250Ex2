@@ -25,7 +25,15 @@ public class Bid implements Serializable {
 
     private Long userId;
     private Long productId;
-    private int bid;
+    private int sum;
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
     
     public Long getId() {
         return id;
@@ -50,14 +58,8 @@ public class Bid implements Serializable {
     public void setProductId(Long productId) {
         this.productId = productId;
     }
-
-    public int getBid() {
-        return bid;
-    }
-
-    public void setBid(int bid) {
-        this.bid = bid;
-    }
+    
+    
 
     @Override
     public int hashCode() {

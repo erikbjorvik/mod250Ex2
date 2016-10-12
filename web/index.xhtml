@@ -22,6 +22,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Features</th>
+                <th>Your bid</th>
                 <th>Action</th>
             </tr>
         <ui:repeat var="o" value="#{allProductsView.prodList}">
@@ -30,6 +31,7 @@
                 <td>#{o.name}</td>
                 <td>#{o.description}</td>
                 <td>#{o.features}</td>
+                <td>#{yourProductsView.getCurrentBidUser(o.id)}</td>
                 <td><a href="product.xhtml?id=#{o.id}">Show</a></td>
             </tr>
 

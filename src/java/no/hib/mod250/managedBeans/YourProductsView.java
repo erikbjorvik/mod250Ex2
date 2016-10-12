@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
+import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.Session;
 
@@ -54,6 +55,10 @@ public class YourProductsView {
 
     public void setProdList(List<Product> prodList) {
         this.prodList = prodList;
+    }
+    
+    public int getCurrentBidUser(Long prodId) {
+        return pDao.getCurrentBid(Session.getId(), prodId);
     }
 
 
