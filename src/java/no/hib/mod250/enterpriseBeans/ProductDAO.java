@@ -65,7 +65,7 @@ public class ProductDAO {
     
     public void placeBid(long userId, long productId, int sum) {
         Bid bid = new Bid();
-        bid.setBid(sum);
+        bid.setSum(sum);
         bid.setProductId(productId);
         bid.setUserId(userId);
         
@@ -73,13 +73,13 @@ public class ProductDAO {
     }
     
     public Bid getHighestBid(long productId) {
-        Query query = em.createQuery("SELECT MAX(b.bid) FROM Bid b WHERE b.productId = :productId");
+        Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId");
         return (Bid) query.setParameter("productId", productId).getResultList().get(0);
     }
     
-    public Bid getCurrentBid(long userId, long productId) {
-        Query query = em.createQuery("SELECT MAX(b.bid) FROM Bid b WHERE b.productId = :productId AND b.userId = :userId");
-        return (Bid) query.setParameter("productId", productId).setParameter("userId", userId).getResultList().get(0);
+    public int getCurrentBid(long userId, long productId) {
+        Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId AND b.userId = :userId");
+        return query.setParameter("productId", productId).setParameter("userId", userId).getFirstResult();
     }
     
     

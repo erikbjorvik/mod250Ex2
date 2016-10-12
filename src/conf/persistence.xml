@@ -4,6 +4,7 @@
     <jta-data-source>java:app/database</jta-data-source>
     <class>no.hib.mod250.entities.User</class>
     <class>no.hib.mod250.entities.Product</class>
+    <class>no.hib.mod250.entities.Bid</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
