@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import no.hib.mod250.enterpriseBeans.UserDAO;
 import no.hib.mod250.util.Session;
 
@@ -26,6 +27,18 @@ public class LoginView {
      * Creates a new instance of LoginView
      */
     public LoginView() {
+        if(Session.isLoggedIn()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
+            try {
+                response.sendRedirect("my-products.xhtml");
+            }
+            
+            catch(Exception e) {
+                
+            }
+            
+        }
     }
 
     public String getEmail() {
