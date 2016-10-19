@@ -15,9 +15,10 @@
         <hr />
         <h1>Place a bid</h1>
         <h:form>
-            <f:param name="id" value="#{productView.product.id}" />
             <h:inputText value="#{productView.bid}" disabled="#{productView.bidActive}" />
-            <h:commandButton value="Place bid" disabled="#{productView.bidActive}" />
+            <h:commandButton action="${productView.add()}" value="Place bid" disabled="#{productView.bidActive}">
+                <f:param name="id" value="#{productView.product.id}" />
+            </h:commandButton>
         </h:form>
         
         <hr />

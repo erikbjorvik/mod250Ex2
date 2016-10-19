@@ -28,6 +28,9 @@ public class ProductView {
     private String timeleft;
     private boolean bidActive;
     private int bid;
+    private String id;
+    
+    private String actionId;
     
     @EJB
     private ProductDAO pDao;
@@ -38,6 +41,26 @@ public class ProductView {
      */
     public ProductView() {
         
+    }
+
+    public String getId() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+ 
+        if(params.get("id") != null) {
+            return params.get("id");
+        }
+        else {
+            return id;
+        }
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public void setActionId(String actionId) {
+        this.actionId = actionId;
     }
 
     public int getBid() {
@@ -51,7 +74,7 @@ public class ProductView {
     
     
     public Product getProduct() {
-        return pDao.getProductById(this.getId());
+        return pDao.getProductById(Integer.parseInt(this.getId()));
     }
 
     public void setProduct(Product product) {
@@ -68,8 +91,10 @@ public class ProductView {
      */
     public boolean getBidActive() {
         
+        System.out.println(this.getId());
+        
         return !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(
-                        pDao.getProductById(this.getId()).getDeadline()
+                        pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()
                     )
                 );
         
@@ -80,8 +105,8 @@ public class ProductView {
      * @return String with site to redirect
      */
     public String add() {
-        pDao.placeBid(Session.getId(), this.getBid(), productId);
-        return "my-products";
+        pDao.placeBid(Session.getId(), Integer.parseInt(this.getId()), this.getBid());
+        return "my-products.xhtml?faces-redirect=true";
     }
 
     public void setProductId(int productId) {
@@ -95,7 +120,7 @@ public class ProductView {
     public String getDeadline() {
         return DateAndTime.dateToString(
                     DateAndTime.getDateObject(
-                        pDao.getProductById(this.getId()).getDeadline()
+                        pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()
                     )
                 );
     }
@@ -107,7 +132,7 @@ public class ProductView {
     public String getTimeleft() {
         return DateAndTime.timeLeftString(
                     DateAndTime.getDateObject(
-                        pDao.getProductById(this.getId()).getDeadline()
+                        pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()
                     )
                 );
     }
@@ -125,14 +150,10 @@ public class ProductView {
     }
     
     
-    public int getId() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        productId = Integer.parseInt(params.get("id"));
+    /*public int getId() {
         
-        return productId;
        
-    }
+    }*/
     
     
     
