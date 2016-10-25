@@ -5,21 +5,13 @@
  */
 package no.hib.mod250.enterpriseBeans;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.ServletException;
 import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
-import no.hib.mod250.entities.User;
 import no.hib.mod250.util.Session;
 
 /**
@@ -74,6 +66,15 @@ public class ProductDAO {
         return query.getResultList();
     }
     
+    public boolean doesProductExist(long productId) {
+        
+        Query query = em.createQuery("SELECT COUNT(u) FROM Product u WHERE u.id = :productId");
+        int nrOfRows = (int) query.setParameter("productId", productId).getResultList().get(0);
+        
+        return nrOfRows>0;
+        
+    }
+    
     /**
      * Get product by product-id
      * @param productId product-id
@@ -81,7 +82,17 @@ public class ProductDAO {
      */
     public Product getProductById(long productId) {
         Query query = em.createQuery("SELECT u FROM Product u WHERE u.id = :productId");
-        return (Product) query.setParameter("productId", productId).getResultList().get(0);
+        Product p;
+        
+        try {
+            p = (Product) query.setParameter("productId", productId).getResultList().get(0);
+        }
+        catch (NullPointerException e) {
+            p = null;
+        }
+        
+        return p;
+        
     }
     
     /**
@@ -105,8 +116,13 @@ public class ProductDAO {
      * @return Highest bid
      */
     public Bid getHighestBid(long productId) {
+        try {
         Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId");
         return (Bid) query.setParameter("productId", productId).getResultList().get(0);
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
     
     /**
