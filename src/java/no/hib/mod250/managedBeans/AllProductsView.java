@@ -36,9 +36,9 @@ public class AllProductsView {
     }
     
     public List<Product> getProdList() {
-        /*SendMessage message = new SendMessage();
+        SendMessage message = new SendMessage();
         SubscriberClient sub = new SubscriberClient();
-        message.publish("Jens", "Stoltenberg", 15, "Sko");*/
+        message.publish("Jens", "Stoltenberg", 15, "Sko");
         return pDao.getAllProducts();
     }
 

@@ -26,12 +26,12 @@ public class SubscriberClient {
             TopicSession topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             TopicSubscriber topicSubscriber = topicSession.createSubscriber((Topic)context.lookup("jms/myTopic"));
             NotifyBuyer topicListener = new NotifyBuyer();
-                topicSubscriber.setMessageListener(topicListener);
-                topicConnection.start();
-            }
+            topicSubscriber.setMessageListener(topicListener);
+            topicConnection.start();
+         }
 
-            catch(Exception e) {
-                e.printStackTrace();
-            }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

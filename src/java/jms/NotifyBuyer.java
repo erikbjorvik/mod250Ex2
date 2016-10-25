@@ -21,7 +21,7 @@ import javax.naming.InitialContext;
  * @author haava
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/myTopic"),
+    //@ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/myTopic"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/myTopic"),
     @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable"),
     @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/myTopic"),
