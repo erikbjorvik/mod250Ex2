@@ -21,4 +21,12 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>Secure</web-resource-name>
+            <description>https</description>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
 </web-app>

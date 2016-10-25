@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
+import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.DateAndTime;
 import no.hib.mod250.util.Session;
@@ -29,6 +29,7 @@ public class ProductView {
     private boolean bidActive;
     private int bid;
     private String id;
+    private int currentBid;
     
     private String actionId;
     
@@ -55,6 +56,18 @@ public class ProductView {
         }
     }
 
+    public int getCurrentBid() {
+        
+        return pDao.getHighestBid(Long.parseLong(this.getId()));
+        
+     }
+
+    public void setCurrentBid(int currentBid) {
+        this.currentBid = currentBid;
+    }
+    
+    
+    
     public void setId(String id) {
         this.id = id;
     }
@@ -105,8 +118,14 @@ public class ProductView {
      * @return String with site to redirect
      */
     public String add() {
-        pDao.placeBid(Session.getId(), Integer.parseInt(this.getId()), this.getBid());
-        return "my-products.xhtml?faces-redirect=true";
+        
+        Bid bid = new Bid();
+        bid.setUserId(Session.getId()); 
+        bid.setProductId(Long.parseLong(this.getId())); 
+        bid.setSum( this.getBid());
+        
+        pDao.placeBid(bid);
+        return "index";
     }
 
     public void setProductId(int productId) {

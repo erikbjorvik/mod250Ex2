@@ -7,13 +7,10 @@ package no.hib.mod250.managedBeans;
 
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
-import no.hib.mod250.entities.Bid;
-import no.hib.mod250.util.Session;
+
 
 /**
  *

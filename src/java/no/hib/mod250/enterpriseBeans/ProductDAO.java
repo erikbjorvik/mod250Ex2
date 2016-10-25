@@ -101,12 +101,7 @@ public class ProductDAO {
      * @param productId id of product
      * @param sum bidding sum
      */
-    public void placeBid(long userId, long productId, int sum) {
-        Bid bid = new Bid();
-        bid.setSum(sum);
-        bid.setProductId(productId);
-        bid.setUserId(userId);
-        
+    public void placeBid(Bid bid) {
         em.persist(bid);
     }
     
@@ -115,14 +110,16 @@ public class ProductDAO {
      * @param productId id of product
      * @return Highest bid
      */
-    public Bid getHighestBid(long productId) {
+    public int getHighestBid(long productId) {
+        
         try {
         Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId");
-        return (Bid) query.setParameter("productId", productId).getResultList().get(0);
+        return (int) query.setParameter("productId", productId).getResultList().get(0);
         }
         catch(Exception e) {
-            return null;
+            return 0;
         }
+        
     }
     
     /**
@@ -132,8 +129,14 @@ public class ProductDAO {
      * @return current bid
      */
     public int getCurrentBid(long userId, long productId) {
-        Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId AND b.userId = :userId");
-        return query.setParameter("productId", productId).setParameter("userId", userId).getFirstResult();
+          
+        try {
+        Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId AND b.userId =:userId");
+        return (int) query.setParameter("productId", productId).setParameter("userId", userId).getResultList().get(0);
+        }
+        catch(Exception e) {
+            return 0;
+        }
     }
     
     

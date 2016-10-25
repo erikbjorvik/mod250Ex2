@@ -15,6 +15,7 @@ import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.enterpriseBeans.UserDAO;
+import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.DateAndTime;
 
@@ -59,31 +60,27 @@ public class AuctionWS {
      * Web service operation
      */
     @WebMethod(operationName = "bidForAuction")
-    public String bidForAuction(@WebParam(name = "userId") String email,
-            @WebParam(name = "productId") long productId, 
-            @WebParam(name = "bid") int bid) {
+    public String bidForAuction(@WebParam(name = "bid") Bid bid) {
         
         
         // First, we should check the input validity.
         
         // Does the user exist?
-        if (!uDAO.doesUserExist(email))
+        if (!uDAO.doesUserExist(bid.getUserId()))
             return "This user does not exist!";
         
-      
-
         //Product theProduct = pDAO.getProductById(productId);
         
         try {
-            int curBid = pDAO.getHighestBid(productId).getSum();
-            if (curBid >= bid && curBid>0 )
+            int curBid = pDAO.getHighestBid(bid.getProductId());
+            if (curBid >= bid.getSum() || curBid<0 )
                 return "Must be a valid product and bid needs to be higher then the current bid.";
         }
         catch (Exception e) {
             //...
         }
             
-        //pDAO.placeBid(userId, auctionId, bid);*/
+        pDAO.placeBid(bid);
         return "The bid was placed!";
         
     }

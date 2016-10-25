@@ -71,10 +71,10 @@ public class UserDAO {
         }
     }
     
-    public boolean doesUserExist(String email) {
+    public boolean doesUserExist(long id) {
         
-        Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email");
-        List<User> resultList = query.setParameter("email", email).getResultList();
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.id = :id");
+        List<User> resultList = query.setParameter("id",id ).getResultList();
         
         return !resultList.isEmpty();
             
