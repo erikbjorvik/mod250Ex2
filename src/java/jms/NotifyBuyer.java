@@ -10,13 +10,18 @@ import javax.ejb.MessageDriven;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.TopicConnection;
+import javax.jms.TopicConnectionFactory;
+import javax.jms.TopicSession;
+import javax.jms.TopicSubscriber;
+import javax.naming.InitialContext;
 
 /**
  *
  * @author haava
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/myTopic"),
+    //@ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/myTopic"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/myTopic"),
     @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable"),
     @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/myTopic"),
@@ -29,17 +34,17 @@ public class NotifyBuyer implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
-        MapMessage msg = (MapMessage) message;
+        MapMessage msg = (MapMessage)message;
         String firstName = "";
         String lastName = "";
         Integer productId = null;
         String productName = "";
         
         try {
-            firstName = msg.getString("firstname");
-            lastName = msg.getString("lastname");
-            productId = msg.getInt("productId");
-            productName = msg.getString("productName");
+            firstName = msg.getStringProperty("firstName");
+            lastName = msg.getStringProperty("lastName");
+            productId = msg.getIntProperty("productId");
+            productName = msg.getStringProperty("productName");
         }
         
         catch(Exception e) {
@@ -53,6 +58,7 @@ public class NotifyBuyer implements MessageListener {
         System.out.println("You can access the product using the following link:");
         System.out.println("URL=http://localhost:8080/faces/product?id=" + productId);
         System.out.println("---- END EMAIL to customer " + firstName + " " + lastName + " ----");
+        
     }
     
 }
