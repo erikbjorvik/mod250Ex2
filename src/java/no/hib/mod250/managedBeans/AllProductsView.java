@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
+import jms.SendMessage;
+import jms.SubscriberClient;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.entities.Bid;
@@ -34,6 +36,9 @@ public class AllProductsView {
     }
     
     public List<Product> getProdList() {
+        /*SendMessage message = new SendMessage();
+        SubscriberClient sub = new SubscriberClient();
+        message.publish("Jens", "Stoltenberg", 15, "Sko");*/
         return pDao.getAllProducts();
     }
 
