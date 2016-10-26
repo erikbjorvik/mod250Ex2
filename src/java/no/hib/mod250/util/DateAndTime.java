@@ -134,14 +134,14 @@ public class DateAndTime {
         calendar.setTime(new Date(diff));
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+1"));
         
-        int month = calendar.get(Calendar.MONTH);
-        int days = calendar.get(Calendar.DAY_OF_MONTH)-1;
-        int hours = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutes = calendar.get(Calendar.MINUTE);
-        int seconds = calendar.get(Calendar.SECOND);
+        
+        long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        long hours = TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) % 60;
+        long minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.MILLISECONDS) % 60;
+        long seconds = TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) % 60;
         
              
-        return month + " months, " + days + " days, " + hours + " hours, " + minutes + " minutes and " +
+        return days + " days, " + hours + " hours, " + minutes + " minutes and " +
                 seconds + " seconds.";
         
     }

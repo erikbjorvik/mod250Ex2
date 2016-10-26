@@ -46,17 +46,12 @@ public class UserDAO {
         
         // Hash the password
         try {
-            
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(password.getBytes("UTF-8")); 
-            byte[] digest = md.digest();
-            String theHash = new String(digest, StandardCharsets.UTF_8);
-
+   
             User user = new User();
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setEmail(email);
-            user.setPasshash(theHash);
+            user.setPasshash(sha256(password));
 
             em.persist(user);
         
@@ -66,6 +61,24 @@ public class UserDAO {
         }
         
     }
+    
+    public static String sha256(String base) {
+    try{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+        StringBuffer hexString = new StringBuffer();
+
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    } catch(Exception ex){
+       throw new RuntimeException(ex);
+    }
+}
     
     /**
      * Finds user in database to validate login credentials
