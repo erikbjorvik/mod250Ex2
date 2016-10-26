@@ -123,6 +123,8 @@ public class ProductView {
             UserDAO userdao = new UserDAO();
             User user = userdao.getUser(b.getUserId());
             
+            System.out.println("Inside finished()");
+            
             SendMessage message = new SendMessage();
             SubscriberClient sub = new SubscriberClient();
             message.publish(user.getFirstname(), user.getLastname(), Integer.parseInt(this.getId()), this.getProduct().getName());
