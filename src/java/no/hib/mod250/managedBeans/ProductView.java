@@ -39,6 +39,9 @@ public class ProductView {
     
     @EJB
     private ProductDAO pDao;
+    
+    @EJB
+    private UserDAO userDao;
    
 
     /**
@@ -117,18 +120,28 @@ public class ProductView {
     }
     
     public void finished() {
-        if(pDao.isActive(Integer.parseInt(this.getId())) && !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()))) {
-            pDao.makeInactive(Integer.parseInt(this.getId()));
-            Bid b = pDao.getHighestBidObject(Integer.parseInt(this.getId()));
-            UserDAO userdao = new UserDAO();
-            User user = userdao.getUser(b.getUserId());
-            
-            System.out.println("Inside finished()");
-            
-            SendMessage message = new SendMessage();
-            SubscriberClient sub = new SubscriberClient();
-            message.publish(user.getFirstname(), user.getLastname(), Integer.parseInt(this.getId()), this.getProduct().getName());
+        Product p = pDao.getProductById(Long.parseLong(this.getId()));
+        
+        try {
+            if(p.isActive() && !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()))) {
+                pDao.makeInactive(p);
+                Bid b = pDao.getHighestBidObject(Long.parseLong(this.getId()));
+                System.out.println("User id: " + b.getUserId());
+                User user = userDao.getUser(b.getUserId());
+
+                System.out.println("Inside finished()");
+
+                SendMessage message = new SendMessage();
+                SubscriberClient sub = new SubscriberClient();
+                message.publish(user.getFirstname(), user.getLastname(), Integer.parseInt(this.getId()), this.getProduct().getName());
+            }
         }
+        
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        
     }
     
     /**

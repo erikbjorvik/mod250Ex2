@@ -6,10 +6,12 @@
 package no.hib.mod250.enterpriseBeans;
 
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.UserTransaction;
 import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
 import no.hib.mod250.util.Session;
@@ -76,25 +78,9 @@ public class ProductDAO {
         
     }
     
-    public boolean isActive(long productId) {
-        Query query = em.createQuery("SELECT u.isActive FROM Product u WHERE u.id = :productId");
-        boolean active = false;
-        try {
-            active = (boolean) query.setParameter("productId", productId).getResultList().get(0);
-        }
-        
-        catch(Exception e) {
-            System.out.println("FEILEN ER " + e.getMessage());
-        }
-        
-        return active;
-    }
-    
-    public void makeInactive(long productId) {
-        Product p = em.find(Product.class, 1);
-        em.getTransaction();
+    public void makeInactive(Product p) {
         p.setIsActive(false);
-        em.persist(p);
+        em.merge(p);
     }
     
     /**
@@ -144,13 +130,16 @@ public class ProductDAO {
     }
     
     public Bid getHighestBidObject(long productId) {
+        Bid b = null;
         try {
-            Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId");
-            return (Bid) query.setParameter("productId", productId).getResultList().get(0);
+            Query query = em.createQuery("SELECT b FROM Bid b WHERE b.productId = :productId AND b.sum = (SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId)");
+            b = (Bid) query.setParameter("productId", productId).getSingleResult();
         }
         catch(Exception e) {
-            return null;
+            e.printStackTrace();
         }
+        
+        return b;
     }
     
     /**
