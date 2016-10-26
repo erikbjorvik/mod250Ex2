@@ -23,13 +23,13 @@ List<Product> getActiveAuctions();
 ```
 
 ## Other things we've done:
-* Made a JMS topic with 2 subscribers. This topic notifies subscribers when someone wins an auction. A small bug keeps this from functing correctly.
+* Made a JMS topic with 2 subscribers. This topic notifies subscribers when someone wins an auction.
 * Made a REST test. 
 * Enabled HTTPS
 * Encrypted passwords
 * Implemented login with standard form-based login method of Java EE with users in JDBC Realm
 
 ## What we didn't have time to do:
-* Make a GUI so that the client application can bid on products
+
 
 
