@@ -56,7 +56,7 @@ public class NotifyBuyer implements MessageListener {
         System.out.println("Dear " + firstName + " " + lastName);
         System.out.println("Congratulations! You have won in bidding for product " + productName + ".");
         System.out.println("You can access the product using the following link:");
-        System.out.println("URL=http://localhost:8080/faces/product?id=" + productId);
+        System.out.println("URL=http://localhost:8080/mod250Ex2/faces/product?id=" + productId);
         System.out.println("---- END EMAIL to customer " + firstName + " " + lastName + " ----");
         
     }

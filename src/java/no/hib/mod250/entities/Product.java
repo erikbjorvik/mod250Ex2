@@ -32,8 +32,15 @@ public class Product implements Serializable {
     private String deadline;
     private float rating;
     private Long sellerId;
-    
-    
+    private boolean isActive;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
     public Long getId() {
         return id;

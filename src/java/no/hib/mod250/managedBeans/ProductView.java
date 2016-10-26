@@ -9,9 +9,13 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import jms.SendMessage;
+import jms.SubscriberClient;
 import no.hib.mod250.enterpriseBeans.ProductDAO;
+import no.hib.mod250.enterpriseBeans.UserDAO;
 import no.hib.mod250.entities.Bid;
 import no.hib.mod250.entities.Product;
+import no.hib.mod250.entities.User;
 import no.hib.mod250.util.DateAndTime;
 import no.hib.mod250.util.Session;
 
@@ -41,7 +45,6 @@ public class ProductView {
      * Creates a new instance of ProductView
      */
     public ProductView() {
-        
     }
 
     public String getId() {
@@ -57,7 +60,7 @@ public class ProductView {
     }
 
     public int getCurrentBid() {
-        
+        finished();
         return pDao.getHighestBid(Long.parseLong(this.getId()));
         
      }
@@ -111,6 +114,19 @@ public class ProductView {
                     )
                 );
         
+    }
+    
+    public void finished() {
+        if(pDao.isActive(Integer.parseInt(this.getId())) && !DateAndTime.isThereTimeLeft(DateAndTime.getDateObject(pDao.getProductById(Integer.parseInt(this.getId())).getDeadline()))) {
+            pDao.makeInactive(Integer.parseInt(this.getId()));
+            Bid b = pDao.getHighestBidObject(Integer.parseInt(this.getId()));
+            UserDAO userdao = new UserDAO();
+            User user = userdao.getUser(b.getUserId());
+            
+            SendMessage message = new SendMessage();
+            SubscriberClient sub = new SubscriberClient();
+            message.publish(user.getFirstname(), user.getLastname(), Integer.parseInt(this.getId()), this.getProduct().getName());
+        }
     }
     
     /**

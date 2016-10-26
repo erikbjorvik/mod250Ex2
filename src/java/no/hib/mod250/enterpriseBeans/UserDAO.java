@@ -80,5 +80,12 @@ public class UserDAO {
             
     }
     
+    public User getUser(long id) {
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.id = :id");
+        User result = (User) query.setParameter("id",id ).getResultList().get(0);
+        
+        return result;
+    }
+    
     
 }

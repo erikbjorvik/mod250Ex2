@@ -42,6 +42,7 @@ public class ProductDAO {
         product.setDeadline(deadline);
         product.setRating(0);
         product.setSellerId(Session.getId());
+        product.setIsActive(true);
         
         em.persist(product);
         
@@ -73,6 +74,27 @@ public class ProductDAO {
         
         return nrOfRows>0;
         
+    }
+    
+    public boolean isActive(long productId) {
+        Query query = em.createQuery("SELECT u.isActive FROM Product u WHERE u.id = :productId");
+        boolean active = false;
+        try {
+            active = (boolean) query.setParameter("productId", productId).getResultList().get(0);
+        }
+        
+        catch(Exception e) {
+            System.out.println("FEILEN ER " + e.getMessage());
+        }
+        
+        return active;
+    }
+    
+    public void makeInactive(long productId) {
+        Product p = em.find(Product.class, 1);
+        em.getTransaction();
+        p.setIsActive(false);
+        em.persist(p);
     }
     
     /**
@@ -119,7 +141,16 @@ public class ProductDAO {
         catch(Exception e) {
             return 0;
         }
-        
+    }
+    
+    public Bid getHighestBidObject(long productId) {
+        try {
+            Query query = em.createQuery("SELECT MAX(b.sum) FROM Bid b WHERE b.productId = :productId");
+            return (Bid) query.setParameter("productId", productId).getResultList().get(0);
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
     
     /**
