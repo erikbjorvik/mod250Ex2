@@ -9,6 +9,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -125,19 +127,28 @@ public class DateAndTime {
         
         long diff = timeLeft(date);
         
-        if (diff==0)
-            return "";
+        if (diff<=0)
+            return "The auction for this product is now closed.";
         
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(diff));
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+        
         int month = calendar.get(Calendar.MONTH);
         int days = calendar.get(Calendar.DAY_OF_MONTH);
         int hours = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
         int seconds = calendar.get(Calendar.SECOND);
-      
+        
+        
+     /*   
+        long days = TimeUnit.DAYS.toSeconds(diff);
+        long hours = TimeUnit.HOURS.toSeconds(diff) % 60;
+        long minutes = TimeUnit.MINUTES.toSeconds(diff) % 60;
+        long seconds = TimeUnit.SECONDS.toSeconds(diff) % 60;
+      */
              
-        return month + " month(s), " + days + " days, " + hours + " hours, " + minutes + " minutes and " +
+        return days + " days, " + hours + " hours, " + minutes + " minutes and " +
                 seconds + " seconds.";
         
     }
