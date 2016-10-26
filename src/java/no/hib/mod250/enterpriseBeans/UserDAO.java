@@ -7,6 +7,8 @@ package no.hib.mod250.enterpriseBeans;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -42,14 +44,26 @@ public class UserDAO {
     public void storeNewUser(String firstname, String lastname,
     String email, String password) {
         
-        User user = new User();
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setEmail(email);
-        user.setPasshash(password);
+        // Hash the password
+        try {
+            
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes("UTF-8")); 
+            byte[] digest = md.digest();
+            String theHash = new String(digest, StandardCharsets.UTF_8);
+
+            User user = new User();
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setEmail(email);
+            user.setPasshash(theHash);
+
+            em.persist(user);
         
-      
-        em.persist(user);
+        }
+        catch (Exception e) {
+            //Could not hash.
+        }
         
     }
     
