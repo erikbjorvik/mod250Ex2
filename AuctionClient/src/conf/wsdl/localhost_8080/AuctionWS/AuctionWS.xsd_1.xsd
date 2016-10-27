@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://webService.mod250.hib.no/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webService.mod250.hib.no/">
+
+<xs:element name="bidForAuction" type="tns:bidForAuction"/>
+
+<xs:element name="bidForAuctionResponse" type="tns:bidForAuctionResponse"/>
+
+<xs:element name="getActiveAuctions" type="tns:getActiveAuctions"/>
+
+<xs:element name="getActiveAuctionsResponse" type="tns:getActiveAuctionsResponse"/>
+
+<xs:element name="product" type="tns:product"/>
+
+<xs:complexType name="getActiveAuctions">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getActiveAuctionsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="product">
+<xs:sequence>
+<xs:element name="deadline" type="xs:string" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="features" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="rating" type="xs:float"/>
+<xs:element name="sellerId" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bidForAuction">
+<xs:sequence>
+<xs:element name="userId" type="xs:string" minOccurs="0"/>
+<xs:element name="productId" type="xs:long"/>
+<xs:element name="bid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bidForAuctionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
